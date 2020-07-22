@@ -38,7 +38,7 @@ Para connectar a base criada utilize os parâmetros abaixo:
 
 Abaixo exemplo de configuração no aplicativo DBeaver para acesso ao banco de dados.
 
-![Tela de configurações para conectar no banco de dados utilizando o DBeaver](./ilustracao01.png)
+![Tela de configurações para conectar no banco de dados utilizando o DBeaver](https://raw.githubusercontent.com/rstriquer/docker/master/Oracle_Database/ilustracao01.PNG)
 
 Caso deseje se conectar diretamente pela linha de comandos utilize conforme abaixo:
 
