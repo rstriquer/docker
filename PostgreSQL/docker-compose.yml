@@ -1,0 +1,17 @@
+version: "3"
+
+volumes:
+  pgsql_db:
+
+services:
+  pgsql_db:
+    image: postgres:9.6
+    container_name: "pgsql_db"
+    environment:
+      - POSTGRES_PASSWORD=123qwe
+      - POSTGRES_DB=dev
+      - TZ=GMT
+    volumes:
+      - "pgsql_db:/var/lib/postgresql/data"
+    ports:
+      - 5432:5432

@@ -1,0 +1,14 @@
+version: '3.6'
+
+volumes:
+  Oracle_12c_db:
+
+services:
+  oracle_db:
+    image: store/oracle/database-enterprise:12.2.0.1
+    container_name: oracle_db
+    volumes:
+      - "Oracle_12c_db:/ORCL"
+    ports:
+      - 1521:1521
+      - 5500:5500
