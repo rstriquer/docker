@@ -1,4 +1,4 @@
-# LAMPhp73 on Docker
+# LAMPhp74 on Docker
 
 Imagem originalmente criada a partir das referências em
 https://hub.docker.com/_/mysql e https://hub.docker.com/_/ubuntu
