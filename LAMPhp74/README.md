@@ -20,7 +20,7 @@ seguinte sequência de comandos:
     cd docker
     openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj "/C=../ST=...../L=..../O=..../CN=..." -keyout ./ssl.pem -out ./ssl.pem
     cd ..
-    docker build -t rstriquer/LAMPhp74:3.0 ./docker/
+    docker build -t rstriquer/lamphp74:3.0 ./docker/
 
 A execução da criação da imagem, descrita nos passos acima, irá fazer o download
 da imagem original do ubuntu, realizar compilações e configurações locais e por
