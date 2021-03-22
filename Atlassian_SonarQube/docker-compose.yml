@@ -1,41 +1,9 @@
 version: '3.6'
 
-#volumes:
-#  Oracle_12c_db:
-
 services:
   rmToolDB:
     image: sonarqube:7.9-community
     container_name: Atlassian_SonarQube79
-#    volumes:
-#      - "Oracle_12c_db:/ORCL"
     ports:
       - 9000:9000
       - 9092:9092
-#    environment:
-#      - ORACLE_SID=ORASID
-#      - ORACLE_PDB=ORAPDB
-#      - ORACLE_PWD=123qwe
-#      - ORACLE_CHARACTERSET=AL32UTF8
-      # é necessário criar o banco e o usuário
-      # conecte com o docker
-      # > winpty docker exec -it oracle_db bash -c "source /home/oracle/.bashrc; /u01/app/oracle/product/12.2.0/dbhome_1/bin/sqlplus /nolog"
-      # > winpty docker exec -it oracle_db bash
-      # executar o programa "sqlplus /nolog"
-      # depois crie o usuário e o banco
-      # connect SYS AS SYSDBA # password: Oradoc_db1
-      # CREATE USER operador IDENTIFIED BY qwe123;
-      # GRANT RESOURCE TO operador;
-      # GRANT CONNECT TO operador;
-      # GRANT CREATE VIEW TO operador;
-      # GRANT CREATE SESSION TO operador;
-      # GRANT UNLIMITED TABLESPACE TO operador;
-      # GRANT SELECT ON SYS.DBA_RECYCLEBIN TO operador;
-    #  - SERVICE_NAME=ORCLPDB1.localdomain
-    #  - USERNAME=sys
-    #  - PASSWORD=Oradoc_db1
-    #  - ORACLE_SID=ORACLEDOCKER.local
-#      - DB_SID=ORALFR
-#      - DB_PDB=ORALFRPDB
-#      - DB_DOMAIN=oracledb.liferay.local
-      #- PATH=$PATH:$ORACLE_HOME
