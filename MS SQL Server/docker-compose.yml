@@ -1,0 +1,20 @@
+version: "3"
+
+#volumes:
+#  sqlserver_db:
+
+services:
+  sqlserver_db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: "sqlserver_db"
+    environment:
+      - MSSQL_SA_PASSWORD=!Q2w#e3r4t5y # SQL Serv needs at least 8 chars pass
+      - MSSQL_MEMORY_LIMIT_MB="2048" 
+      - MSSQL_PID="409bb02e-a21f-44f2-8fdf-f0de539975fd"
+      - MSSQL_AGENT_ENABLED="true" 
+      - ACCEPT_EULA="Y"
+      - TZ=GMT
+#    volumes:
+#      - "sqlserver_db:/var/lib/postgresql/data"
+    ports:
+      - 1433:1433
