@@ -1,5 +1,11 @@
 version: '3.6'
 
+volumes:
+  SonarQube79_conf:
+  SonarQube79_data:
+  SonarQube79_logs:
+  SonarQube79_extensions:
+
 services:
   rmToolDB:
     image: sonarqube:7.9-community
@@ -7,3 +13,8 @@ services:
     ports:
       - 9000:9000
       - 9092:9092
+    volumes:
+      - SonarQube79_conf:/opt/sonarqube/conf
+      - SonarQube79_data:/opt/sonarqube/data
+      - SonarQube79_logs:/opt/sonarqube/logs
+      - SonarQube79_extensions:/opt/sonarqube/extensions
