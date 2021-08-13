@@ -1,0 +1,40 @@
+version: '3.7'
+
+volumes:
+    mysql:
+        driver: local
+
+services:
+    mysql:
+        image: mysql:5.6
+        environment:
+          - MYSQL_USER=${MYSQL_USER}
+          - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+          - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+          - LANG=C.UTF_8
+          - TZ=${WORKSPACE_TIMEZONE}
+        volumes:
+          - ${HOST_DATA_PATH}/mysql:/var/lib/mysql
+        ports:
+          - "${MYSQL_PORT}:3306"
+        command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--skip-character-set-client-handshake']
+#    php:
+#        image: php:8.1-rc-fpm-alpine
+#        volumes:
+#            - ./php-fpm/xdebug.ini:/usr/local/etc/mods-available/xdebug.ini
+#            - ${HOST_SRC_PATH}:/var/www/html
+#        expose:
+#            - "9000"
+#        ports:
+#            - "9000:9000"
+#    nginx:
+#        image: nginx:stable
+#        volumes:
+#            - ${HOST_SRC_PATH}:/usr/share/nginx/html/
+#            - ./nginx/apache-000-default.conf:/etc/apache2/sites-available/000-default.conf
+#            - ./nginx/apache-000-default-ssl.conf:/etc/apache2/sites-available/default-ssl.conf
+#            - ./nginx/ssl.crt:/etc/apache2/ssl/ssl.crt
+#            - ./nginx/ssl.key:/etc/apache2/ssl/ssl.key
+#        ports:
+#            - "8080:80"
+#            - "8443:443"
