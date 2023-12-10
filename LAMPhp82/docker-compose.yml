@@ -1,0 +1,59 @@
+version: "3"
+
+networks:
+  local_docker_vpn:
+    driver: bridge
+
+services:
+  # https://speakerdeck.com/freshdaz/mysql-8-dot-0-performance-tuning-tips-implementing-best-practices-will-get-you-the-scalability-you-need?slide=22
+  # Very high restrictive parameters. Digital Ocean compatible
+  mysql:
+    image: "mysql/mysql-server:8.0.23"
+    ports:
+      - "${FORWARD_DB_PORT:-3306}:3306"
+    environment:
+      MYSQL_CHARACTER_SET_SYSTEM: utf8mb3
+      MYSQL_DATABASE: "${DB_DATABASE:-database_local}"
+      MYSQL_USER: "${DB_USER:-someuser}"
+      MYSQL_PASSWORD: "${DB_PASSWORD:-123456}"
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD:-some_hard_password}"
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      LANG: C.UTF_8
+      TZ: "${DATABASE_WORKSPACE_TIMEZONE:-UTC}"
+    volumes:
+      - ${PROJECT_HOME:-./storage/docker/mysql}:/var/lib/mysql
+    command:
+      --sql_mode="REAL_AS_FLOAT,PIPES_AS_CONCAT,ANSI_QUOTES,IGNORE_SPACE,ONLY_FULL_GROUP_BY,ANSI,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+      --sql_require_primary_key="ON"
+    networks:
+      - local_docker_vpn
+
+  http_server:
+    image: webdevops/php-apache-dev:8.2-alpine
+    environment:
+      - PHP_DEBUGGER=${PHP_DEBUGGER:-xdebug}
+      - XDEBUG_MODE=${XDEBUG_MODE:-debug}
+      # If you need to debug with KCachegrind uncomment the lines below and comment the upper line
+      #- XDEBUG_OUTPUT_DIR=${PROJECT_HOME:-/app/storage/docker/php}
+      #- XDEBUG_MODE=${XDEBUG_MODE:-develop,coverage,debug,profile}
+      - XDEBUG_START_WITH_REQUEST=${XDEBUG_START_WITH_REQUEST:-yes}
+      - XDEBUG_CLIENT_PORT=${XDEBUG_CLIENT_PORT:-9003}
+      - PHP_DISPLAY_ERRORS=${PHP_DISPLAY_ERRORS:-1}
+      - XDEBUG_CLIENT_HOST=${XDEBUG_CLIENT_HOST:-host.docker.internal}
+    ports:
+      - "${FORWARD_APP_PORT:-8080}:80"
+    volumes:
+      - ${PROJECT_HOME:-./}:/app
+    networks:
+      - local_docker_vpn
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  mailhog:
+    image: mailhog/mailhog
+    logging:
+      driver: "none" # disable saving logs
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
