@@ -1,5 +1,7 @@
 # LAMPhp82 on Docker
 
+Este arquivo está disponível também em sua versão em [Português Brasileiro](./README-pr_br.md)
+
 O ambiente aqui definido irá instanciar três contâineres, um contendo o apache
 com a linguagem PHP 8.2 trabalhando em FastCGI, outro com o banco de dados
 MySQL Server 8 e um último com o mailhog. A instância php irá
@@ -22,9 +24,9 @@ As configurações do arquivo docker-composer.yml podem ser alteradas a partir d
 
 Para executar a imagem você deve baixar o arquivo "yml" deste diretório, criar um diretório
 com o nome "storage/docker" e dentro dele criar a pasta mysql. Todas estas pastas devem ter
-autorização para leitura e escrita pelo usuário que irá executar o comando do docker. em seguida você deve criar a
-instância web para depois executar "docker-compose up", o que irá disponibilizar
-o ambite para seu uso.
+autorização para leitura e escrita pelo usuário que irá executar o comando do docker.
+em seguida você deve criar a instância web para depois executar "docker-compose up", o
+que irá disponibilizar o ambite para seu uso.
 
 Ao concluir a criação destes arquivos e diretórios locais você poderá executar o
 "docker-compose up", que por sua vez irá iniciar o download das imagens
@@ -34,14 +36,13 @@ background (opção "-d" do docker-compose), desta forma você poderá acompanha
 em tela o download dos arquivos, assim como o andamento da criação da instância
 inicial.
 
-A criação desta instância na primeira execução, após o download da imagem, irá
+PS: A criação desta instância na primeira execução, após o download da imagem, irá
 demorar por volta de 10min (ou mais, dependendo de sua máquina) mas após executar
 será apresentado uma saída similar a apresentada abaixo. Apenas após as mensagens
 a instância estará pronta para uso.
 
     2020-07-22 00:46:23 1 [Note] mysqld: ready for connections.
     Version: '5.6.48'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server (GPL)
-
 
 # Recomendações
 
@@ -54,19 +55,17 @@ A execução deste comando cria uma instância com um banco de dados MySQL espec
 Para connectar a base criada utilize os parâmetros abaixo:
 
 * **HOST**: localhost
-
 * **PORT**: 3306
-
 * **DATABASE**: database_local
-
 * **USERNAME** someuser
-
 * **PASSWORD**: 123456
 
 Caso deseje se conectar diretamente pela linha de comandos utilize conforme
 abaixo:
 
+```bash
 docker exec -it LAMPhp82_db bash -c "mysql"
+```
 
 ## PHP
 
@@ -77,8 +76,9 @@ configuração de debug para PHP e adicionar no arquivo launch.json criado para
 o debugger as seguintes variáveis:
 
 ```json
-    "serverSourceRoot": "/app",
-    "localSourceRoot": "${workspaceRoot}"
+    "pathMappings": {
+        "/app": "${workspaceFolder}"
+    },
 ```
 
 Para facilitar ainda mais adicionamos no projeto um arquivo launch.json que fica
